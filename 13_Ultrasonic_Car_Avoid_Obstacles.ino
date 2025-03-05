@@ -18,8 +18,8 @@ float distance;
 float midDist;
 float leftDist;
 float rightDist;
-int avoid_Dist = 128; // cm
-int minDist = 110; // cm
+int avoid_Dist = 128; // 28 cm
+int minDist = 110; // 10cm
 
 int wheel_Steering = 40;
 int deviation = 0;
