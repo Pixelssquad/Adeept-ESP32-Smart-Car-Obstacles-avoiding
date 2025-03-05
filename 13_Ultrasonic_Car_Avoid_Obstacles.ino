@@ -28,12 +28,12 @@ int Speed =35          ;  // value:0-100
 int steering_Speed = 80;  // value:0-100
 
 void setup() {
-  Serial.begin(115200);//Open the serial port and set the baud rate to 115200
+  Serial.begin(115200); //Open the serial port and set the baud rate to 115200
   PCA9685_Setup();       //Initializes the chip that controls the motor
   Ultrasonic_Setup();  //Ultrasonic module initialization.
-  // WS2812 OFF
+  // Added some light effects
   strip.begin();      //Initialize WS2812.
-  strip.setBrightness(2);//Set the brightness of WS2812（0-255）.
+  strip.setBrightness(2); //Set the brightness of WS2812（0-255）.
   strip.set_pixel(0, 0, 0, 255); 
   strip.set_pixel(1, 0, 0, 0); 
   strip.set_pixel(2, 0, 0, 0); 
@@ -42,7 +42,7 @@ void setup() {
   strip.set_pixel(5, 255, 0, 0);
   strip.set_pixel(6, 0, 255, 0);
   strip.show();
-  delay(3000);          //Wait for the servo to arrive at the specified location
+  delay(3000);       
     strip.set_pixel(0, 0, 0, 0); 
   strip.set_pixel(1, 0, 128, 255); 
   strip.set_pixel(2, 0, 128, 255); 
@@ -60,7 +60,7 @@ void setup() {
   strip.set_pixel(5, 255, 0, 0);
   strip.set_pixel(6, 0, 255, 0);
   strip.show();
-  delay(1000);          //Wait for the servo to arrive at the specified location
+  delay(1000);        
     strip.set_pixel(0, 0, 0, 0); 
   strip.set_pixel(1, 0, 128, 255); 
   strip.set_pixel(2, 0, 128, 255); 
@@ -78,7 +78,7 @@ void setup() {
   strip.set_pixel(5, 255, 0, 0);
   strip.set_pixel(6, 0, 255, 0);
   strip.show();
-  delay(500);          //Wait for the servo to arrive at the specified location
+  delay(500);          
   strip.set_pixel(0, 0, 0, 0); 
   strip.set_pixel(1, 0, 128, 255); 
   strip.set_pixel(2, 0, 128, 255); 
@@ -112,10 +112,10 @@ void setup() {
   strip.set_pixel(3, 0, 255, 0); 
   strip.show();
     delay(250);   
-          strip.setAllLedsColorData(255,0,0); // leds off  
+          strip.setAllLedsColorData(255,0,0); 
               delay(300); 
                   
-        strip.setAllLedsColorData(0,0,0); // leds off
+        strip.setAllLedsColorData(0,0,0); 
   strip.show();  // Execute the light off command.
 }
 
@@ -137,7 +137,7 @@ void Ultra_Avoid(){
   Motor(1,1,0); //Stop the car
   Motor(2,1,0);
     strip.setAllLedsColorData(255,0,0); // 
-  strip.show();  // Execute the light off command.
+  strip.show();  
 
   if (midDist > avoid_Dist){
     
@@ -147,12 +147,12 @@ void Ultra_Avoid(){
       Servo_1_Angle(servo_Init+ deviation);  // front wheel
       Motor(1,1,Speed); //forward
       Motor(2,1,Speed);
-  strip.setAllLedsColorData(255,0,0); // LED lights off.
-  strip.show();  // Execute the light off command.
+  strip.setAllLedsColorData(255,0,0); 
+  strip.show(); 
   }
   else if (midDist <= avoid_Dist){
-  strip.setAllLedsColorData(255,0,0); // LED lights off.
-  strip.show();  // Execute the light off command.
+  strip.setAllLedsColorData(255,0,0);
+  strip.show();  
       Servo_1_Angle(servo_Init + deviation);  // front wheel
       Motor(1,1,0); //Stop the car
       Motor(2,1,0);
@@ -165,8 +165,8 @@ void Ultra_Avoid(){
       leftDist = (a+b+c)/3;
       Serial.print("Left:");
       Serial.println(leftDist);
-       strip.setAllLedsColorData(255,255,0); // LED lights off.
-       strip.show();  // Execute the light off command.
+       strip.setAllLedsColorData(255,255,0); 
+       strip.show();  
       Servo_2_Angle(servo_Init + 60); // right distance.
       delay(400);
       a = Get_Sonar();
@@ -175,8 +175,8 @@ void Ultra_Avoid(){
       rightDist = (a+b+c)/3;
       Serial.print("Right:");
       Serial.println(rightDist);
-       strip.setAllLedsColorData(0,255,255); // LED lights off.
-       strip.show();  // Execute the light off command.
+       strip.setAllLedsColorData(0,255,255); 
+       strip.show();  
       Servo_2_Angle(servo_Init); // back to mid.
   
     if ((leftDist < avoid_Dist)&&(rightDist < avoid_Dist)){ // Judgment left and right.
@@ -185,8 +185,8 @@ void Ultra_Avoid(){
           Servo_1_Angle(servo_Init + wheel_Steering + deviation); //turn left backward
           Motor(1,-1,Speed); //backward
           Motor(2,-1,Speed);
-          strip.setAllLedsColorData(0,0,255); // LED lights off.
-          strip.show();  // Execute the light off command.
+          strip.setAllLedsColorData(0,0,255); 
+          strip.show();  
           delay(500);
         }
         else{ //There are obstacles on the left.
@@ -195,8 +195,8 @@ void Ultra_Avoid(){
           Servo_1_Angle(servo_Init - wheel_Steering + deviation); //turn right backward
           Motor(1,-1,Speed); //backward
           Motor(2,-1,Speed);
-          strip.setAllLedsColorData(0,0,255); // LED lights off.
-          strip.show();  // Execute the light off command.
+          strip.setAllLedsColorData(0,0,255); 
+          strip.show();  
           delay(500);
         }
     }
@@ -206,16 +206,16 @@ void Ultra_Avoid(){
           Servo_1_Angle(servo_Init+ deviation); // backward
           Motor(1,-1,Speed); 
           Motor(2,-1,Speed);
-          strip.setAllLedsColorData(0,0,255); // LED lights off.
-          strip.show();  // Execute the light off command.
+          strip.setAllLedsColorData(0,0,255); 
+          strip.show();  
           delay(400);
         }
         Serial.println("turn left backward");
         Servo_1_Angle(servo_Init + wheel_Steering + deviation); // turn left backward
         Motor(1,-1,Speed); 
         Motor(2,-1,Speed);
-          strip.setAllLedsColorData(0,0,255); // LED lights off.
-          strip.show();  // Execute the light off command.
+          strip.setAllLedsColorData(0,0,255); 
+          strip.show();  
         delay(500);
     }
     else if ((leftDist <= avoid_Dist) &&(rightDist > avoid_Dist)){ // There are obstacles on the left.
@@ -224,16 +224,16 @@ void Ultra_Avoid(){
             Servo_1_Angle(servo_Init + deviation); // backward
             Motor(1,-1,Speed); 
             Motor(2,-1,Speed);
-           strip.setAllLedsColorData(0,0,255); // LED lights off.
-          strip.show();  // Execute the light off command.
+           strip.setAllLedsColorData(0,0,255); 
+          strip.show();  
             delay(500);
         }
         Serial.println(" turn right backward");
         Servo_1_Angle(servo_Init - wheel_Steering + deviation); //turn right backward
         Motor(1,-1,Speed); //backward
         Motor(2,-1,Speed);
-          strip.setAllLedsColorData(0,0,255); // LED lights off.
-          strip.show();  // Execute the light off command.
+          strip.setAllLedsColorData(0,0,255); 
+          strip.show();  
         delay(400);
     }
     else if ((leftDist >= avoid_Dist) &&( rightDist >= avoid_Dist)){
@@ -242,15 +242,15 @@ void Ultra_Avoid(){
                 Servo_1_Angle(servo_Init+ deviation); // backward
                 Motor(1,-1,Speed); 
                 Motor(2,-1,Speed);
-          strip.setAllLedsColorData(0,0,255); // LED lights off.
-          strip.show();  // Execute the light off command.
+          strip.setAllLedsColorData(0,0,255); 
+          strip.show();  
                 delay(500);
             }
             Servo_1_Angle(servo_Init + wheel_Steering + deviation); // turn left backward
             Motor(1,-1,Speed); 
             Motor(2,-1,Speed);
-          strip.setAllLedsColorData(0,0,255); // LED lights off.
-          strip.show();  // Execute the light off command.
+          strip.setAllLedsColorData(0,0,255); 
+          strip.show();  
             delay(400);
         }
         else{
@@ -258,15 +258,15 @@ void Ultra_Avoid(){
                 Servo_1_Angle(servo_Init+ deviation); // backward
                 Motor(1,-1,Speed); 
                 Motor(2,-1,Speed);
-          strip.setAllLedsColorData(0,0,255); // LED lights off.
-          strip.show();  // Execute the light off command.
+          strip.setAllLedsColorData(0,0,255); 
+          strip.show();  
                 delay(500);
             }
             Servo_1_Angle(servo_Init + wheel_Steering + deviation); // turn left backward
             Motor(1,-1,Speed); 
             Motor(2,-1,Speed);
-          strip.setAllLedsColorData(0,0,255); // LED lights off.
-          strip.show();  // Execute the light off command. 
+          strip.setAllLedsColorData(0,0,255); 
+          strip.show(); 
             delay(400);
        }
     }
